@@ -43,63 +43,63 @@ CARIES_DEMO_CASES = {
     "patient_0001.jpg": {
         "title": "patient_0001.jpg - Sound Tooth (Negative)",
         "category": "Sound / Healthy Enamel",
-        "expected_lesions": 0,
+        "expected_count": 0,
         "expected_area": "0.00%",
         "notes": "No active caries. Contains 3 radio-opaque restorative fillings."
     },
     "patient_0002.jpg": {
         "title": "patient_0002.jpg - Sound Enamel (Caries-free)",
         "category": "Sound / Caries-free",
-        "expected_lesions": 0,
+        "expected_count": 0,
         "expected_area": "0.00%",
         "notes": "Caries-free crowns. Note: Root apex exhibits a periapical lesion."
     },
     "patient_0004.jpg": {
         "title": "patient_0004.jpg - Single Cavity (Mild/Incipient)",
         "category": "Mild / Incipient Caries",
-        "expected_lesions": 1,
+        "expected_count": 1,
         "expected_area": "2.16%",
         "notes": "Distinct coronal interproximal radiolucency on crown."
     },
     "patient_0006.jpg": {
         "title": "patient_0006.jpg - Single Cavity (Mild Enamel Decay)",
         "category": "Mild / Enamel Caries",
-        "expected_lesions": 1,
+        "expected_count": 1,
         "expected_area": "1.53%",
         "notes": "Localized demineralization at the enamel-dentin junction."
     },
     "patient_0030.jpg": {
         "title": "patient_0030.jpg - Recurrent Caries (Adjacent to Restoration)",
         "category": "Mild / Recurrent Caries",
-        "expected_lesions": 1,
+        "expected_count": 1,
         "expected_area": "1.65%",
         "notes": "Secondary decay adjacent to existing restoration margin."
     },
     "patient_0016.jpg": {
         "title": "patient_0016.jpg - Multiple Cavities (Moderate)",
         "category": "Moderate Caries (2 Lesions)",
-        "expected_lesions": 2,
+        "expected_count": 2,
         "expected_area": "3.88%",
         "notes": "2 separate carious lesions involving proximal surfaces of adjacent teeth."
     },
     "patient_0023.jpg": {
         "title": "patient_0023.jpg - Deep Cavities (Moderate)",
         "category": "Moderate Dentinal Caries (2 Lesions)",
-        "expected_lesions": 2,
+        "expected_count": 2,
         "expected_area": "4.12%",
         "notes": "2 deep cavities advancing into dentin towards the pulp chamber."
     },
     "patient_0044.jpg": {
         "title": "patient_0044.jpg - Severe Decay (3 Lesions)",
         "category": "Severe Multi-surface Caries",
-        "expected_lesions": 3,
+        "expected_count": 3,
         "expected_area": "3.44%",
         "notes": "Widespread caries across multiple teeth with structural loss."
     },
     "patient_0055.png": {
         "title": "patient_0055.png - Extensive Deep Cavities (3 Lesions)",
         "category": "Severe Deep Decay",
-        "expected_lesions": 3,
+        "expected_count": 3,
         "expected_area": "3.29%",
         "notes": "Extensive coronal destruction and deep dentinal cavitation."
     }
@@ -108,57 +108,57 @@ CARIES_DEMO_CASES = {
 PLAQUE_DEMO_CASES = {
     "10.png": {
         "title": "10.png - Clean Teeth (Zero Plaque)",
-        "category": "Clean / Sound",
-        "expected_regions": 0,
+        "category": "Clean / Sound Surface",
+        "expected_count": 0,
         "expected_area": "0.00%",
         "notes": "Plaque-free smooth enamel surfaces."
     },
     "1004.png": {
         "title": "1004.png - Healthy Gingival Margins (Zero Plaque)",
-        "category": "Clean / Sound",
-        "expected_regions": 0,
+        "category": "Clean / Sound Gingival Margin",
+        "expected_count": 0,
         "expected_area": "0.00%",
         "notes": "Clean gingival margins without biofilm accumulation."
     },
     "1194.png": {
         "title": "1194.png - Incipient Plaque (< 1%)",
-        "category": "Mild Plaque",
-        "expected_regions": 1,
+        "category": "Mild Plaque Accumulation",
+        "expected_count": 1,
         "expected_area": "0.61%",
         "notes": "Localized incipient bacterial accumulation near the gingival border."
     },
     "1250.png": {
         "title": "1250.png - Localized Cervical Plaque (< 1%)",
-        "category": "Mild Plaque",
-        "expected_regions": 1,
+        "category": "Mild Plaque Accumulation",
+        "expected_count": 1,
         "expected_area": "0.64%",
         "notes": "Small cervical biofilm deposit along the gum line."
     },
     "1069.png": {
         "title": "1069.png - Moderate Interdental Plaque (~5%)",
-        "category": "Moderate Plaque",
-        "expected_regions": 2,
+        "category": "Moderate Plaque Biofilm",
+        "expected_count": 2,
         "expected_area": "5.14%",
         "notes": "Plaque deposits extending across interproximal tooth surfaces."
     },
     "1014.png": {
         "title": "1014.png - Moderate Cervical Plaque (~6%)",
-        "category": "Moderate Plaque",
-        "expected_regions": 2,
+        "category": "Moderate Plaque Biofilm",
+        "expected_count": 2,
         "expected_area": "6.25%",
         "notes": "Visible continuous biofilm along the cervical third of teeth."
     },
     "100.png": {
         "title": "100.png - Heavy Plaque Biofilm (~15%)",
-        "category": "Heavy / Severe Plaque",
-        "expected_regions": 2,
+        "category": "Heavy / Severe Plaque Biofilm",
+        "expected_count": 2,
         "expected_area": "15.01%",
         "notes": "Extensive continuous biofilm coating multiple dental crowns."
     },
     "1040.png": {
         "title": "1040.png - Confluent Severe Plaque (~17%)",
-        "category": "Heavy / Severe Plaque",
-        "expected_regions": 3,
+        "category": "Heavy / Severe Plaque Biofilm",
+        "expected_count": 3,
         "expected_area": "16.71%",
         "notes": "Thick confluent plaque deposits spanning multiple anterior/posterior teeth."
     }
@@ -215,7 +215,8 @@ st.markdown("""
 
 # --- Model Loader ---
 @st.cache_resource(show_spinner="Loading UNet Diagnostic Network...")
-def load_unet_model(model_path: Path):
+def load_unet_model(model_path_str: str, mtime: float):
+    model_path = Path(model_path_str)
     model = smp.Unet(
         encoder_name="resnet34",
         encoder_weights="imagenet" if not model_path.exists() else None,
@@ -228,7 +229,7 @@ def load_unet_model(model_path: Path):
         model.load_state_dict(state_dict)
         status = "Trained Checkpoint Loaded"
     else:
-        status = "Pretrained Encoder (Base) Loaded"
+        status = "Base Encoder Loaded"
     
     model.to(DEVICE)
     model.eval()
@@ -263,11 +264,11 @@ def run_inference(model, img_rgb: np.ndarray, target_size=(512, 512)):
     return prob_orig
 
 
-def postprocess_lesions(prob_mask: np.ndarray, threshold: float = 0.5, min_area: int = 50):
+def postprocess_findings(prob_mask: np.ndarray, threshold: float = 0.4, min_area: int = 40):
     binary_mask = (prob_mask >= threshold).astype(np.uint8)
     contours, _ = cv2.findContours(binary_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
-    lesions = []
+    findings = []
     filtered_mask = np.zeros_like(binary_mask)
     
     for cnt in contours:
@@ -278,7 +279,7 @@ def postprocess_lesions(prob_mask: np.ndarray, threshold: float = 0.5, min_area:
             M = cv2.moments(cnt)
             cx = int(M["m10"] / (M["m00"] + 1e-6))
             cy = int(M["m01"] / (M["m00"] + 1e-6))
-            lesions.append({
+            findings.append({
                 'contour': cnt,
                 'bbox': (x, y, w, h),
                 'area': int(area),
@@ -287,41 +288,50 @@ def postprocess_lesions(prob_mask: np.ndarray, threshold: float = 0.5, min_area:
             
     total_pixels = prob_mask.shape[0] * prob_mask.shape[1]
     affected_area_pct = (np.sum(filtered_mask) / total_pixels) * 100.0
-    return lesions, filtered_mask, affected_area_pct
+    return findings, filtered_mask, affected_area_pct
 
 
 # --- Sidebar Navigation & Controls ---
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/tooth.png", width=64)
     st.title("DentalVision AI")
-    st.caption("AI-Assisted Dental Radiograph & Plaque Diagnostics")
+    st.caption("Clinical Decision Support for Caries & Plaque")
     st.markdown("---")
     
     mode = st.radio(
-        "Diagnostic Modality",
+        "Select Diagnostic Modality",
         ["🦷 Intraoral Radiograph (Caries / Decay)", "📷 Clinical Camera (Plaque / Biofilm)"],
         index=0
     )
+    is_radiograph_mode = "Radiograph" in mode
     
     st.markdown("### ⚙️ Diagnostic Parameters")
+    
+    # Recommended default thresholds
+    default_th = 0.40 if is_radiograph_mode else 0.40
     conf_threshold = st.slider(
-        "Confidence / Sensitivity Threshold",
-        min_value=0.10, max_value=0.90, value=0.40, step=0.05,
-        help="Lower values increase sensitivity (catching subtle early lesions). Higher values increase specificity."
+        "Sensitivity / Detection Threshold",
+        min_value=0.10, max_value=0.90, value=default_th, step=0.05,
+        help="Optimal range: 0.35 - 0.45 for X-ray cavities, 0.35 - 0.50 for photographic plaque."
     )
     
-    enable_clahe = st.checkbox(
-        "Apply CLAHE Contrast Enhancement",
-        value=True,
-        help="Improves subtle demineralization boundaries on low-contrast X-rays."
-    )
+    # CLAHE option only for monochrome radiographs
+    if is_radiograph_mode:
+        enable_clahe = st.checkbox(
+            "Apply CLAHE Contrast Enhancement",
+            value=True,
+            help="Improves subtle demineralization boundaries on low-contrast X-rays."
+        )
+    else:
+        enable_clahe = False
+        st.caption("ℹ️ *Photographs use natural RGB color analysis. CLAHE is automatically disabled.*")
     
     overlay_opacity = st.slider(
-        "Lesion Overlay Opacity",
+        "Diagnostic Overlay Opacity",
         min_value=0.1, max_value=0.9, value=0.45, step=0.05
     )
     
-    show_bboxes = st.checkbox("Show Lesion Bounding Boxes", value=True)
+    show_bboxes = st.checkbox("Show Bounding Boxes", value=True)
     
     st.markdown("---")
     st.markdown(f"**Compute Device:** `{DEVICE}`")
@@ -334,15 +344,31 @@ st.markdown('<div class="main-header">Automated Dental Healthcare Diagnostic Sui
 st.markdown('<div class="sub-header">Deep Learning Semantic Segmentation (UNet) for Tooth Decay & Plaque Detection</div>', unsafe_allow_html=True)
 
 # Select active model and directory based on mode
-is_radiograph_mode = "Radiograph" in mode
 active_model_path = CARIES_MODEL_PATH if is_radiograph_mode else PLAQUE_MODEL_PATH
 demo_img_dir = DEMO_CARIES_IMG if is_radiograph_mode else DEMO_PLAQUE_IMG
 demo_gt_dir = DEMO_CARIES_GT if is_radiograph_mode else DEMO_PLAQUE_GT
 demo_meta = CARIES_DEMO_CASES if is_radiograph_mode else PLAQUE_DEMO_CASES
-target_label = "Carious Lesion (Tooth Decay)" if is_radiograph_mode else "Bacterial Plaque"
-mask_color = (255, 30, 30) if is_radiograph_mode else (255, 140, 0) # Red for caries, Orange for plaque
 
-model, model_status = load_unet_model(active_model_path)
+# Mode-Specific Clinical Terms
+if is_radiograph_mode:
+    target_label = "Dental Caries (Demineralized Cavities)"
+    metric_count_label = "Carious Lesions Detected"
+    metric_area_label = "Caries Lesion Area"
+    metric_prob_label = "Max Caries Probability"
+    table_item_label = "Lesion #"
+    table_header = "#### 3. Localized Caries Lesion Quantification"
+    mask_color = (255, 30, 30) # Red
+else:
+    target_label = "Bacterial Plaque & Biofilm Deposit"
+    metric_count_label = "Biofilm Regions Detected"
+    metric_area_label = "Plaque Biofilm Coverage"
+    metric_prob_label = "Max Biofilm Probability"
+    table_item_label = "Biofilm Region #"
+    table_header = "#### 3. Localized Plaque Biofilm Quantification"
+    mask_color = (255, 140, 0) # Orange
+
+mtime = active_model_path.stat().st_mtime if active_model_path.exists() else 0.0
+model, model_status = load_unet_model(str(active_model_path), mtime)
 
 if not active_model_path.exists():
     st.info(f"ℹ️ **Notice:** `{active_model_path.name}` not found in `models/`. Running with base encoder weights. Run training in `Notebooks/Main.ipynb` to save trained weights.")
@@ -380,18 +406,20 @@ if input_option == "🎯 Curated Demo Testing Suite (with Expected Results)":
             ref_image_path = candidate_ref
 
     # Ground Truth Expected Results Card
+    target_unit = "Lesions" if is_radiograph_mode else "Biofilm Regions"
     st.markdown(f"""
     <div class="ground-truth-card">
-        <strong>📋 Expected Ground Truth for <code>{image_name}</code>:</strong><br>
+        <strong>📋 Clinical Ground Truth for <code>{image_name}</code>:</strong><br>
         • <strong>Category:</strong> {selected_meta['category']}<br>
-        • <strong>Expected Lesions / Regions:</strong> {selected_meta.get('expected_lesions', selected_meta.get('expected_regions', 'N/A'))}<br>
-        • <strong>Expected Area %:</strong> {selected_meta['expected_area']}<br>
-        • <strong>Clinical Notes:</strong> {selected_meta['notes']}
+        • <strong>Expected {target_unit}:</strong> {selected_meta.get('expected_count', 'N/A')}<br>
+        • <strong>Expected Coverage:</strong> {selected_meta['expected_area']}<br>
+        • <strong>Clinical Landmark / Notes:</strong> {selected_meta['notes']}
     </div>
     """, unsafe_allow_html=True)
 
 elif input_option == "📁 Upload Image File":
-    st.caption("You can drag and drop any image from `demo testing/caries/images/` or `demo testing/plaque/images/` below:")
+    source_subfolder = "caries" if is_radiograph_mode else "plaque"
+    st.caption(f"Drag and drop any image from `demo testing/{source_subfolder}/images/` below:")
     uploaded_file = st.file_uploader(
         "Upload Dental Image (JPG, PNG, JPEG)",
         type=["jpg", "jpeg", "png"]
@@ -426,7 +454,7 @@ if input_image is not None:
     
     # Run model
     prob_mask = run_inference(model, processed_image)
-    lesions, filtered_mask, affected_pct = postprocess_lesions(prob_mask, threshold=conf_threshold)
+    findings, filtered_mask, affected_pct = postprocess_findings(prob_mask, threshold=conf_threshold)
     
     # Create Visual Overlay
     overlay_mask = np.zeros_like(input_image)
@@ -434,29 +462,41 @@ if input_image is not None:
     blended = cv2.addWeighted(input_image, 1.0 - overlay_opacity, overlay_mask, overlay_opacity, 0)
     
     # Draw contours & bounding boxes
-    for idx, lesion in enumerate(lesions):
-        cnt = lesion['contour']
-        cv2.drawContours(blended, [cnt], -1, (255, 255, 0), 2)
+    for idx, finding in enumerate(findings):
+        cnt = finding['contour']
+        contour_color = (255, 255, 0) if is_radiograph_mode else (0, 255, 0)
+        cv2.drawContours(blended, [cnt], -1, contour_color, 2)
         if show_bboxes:
-            x, y, w, h = lesion['bbox']
-            cv2.rectangle(blended, (x, y), (x + w, y + h), (0, 255, 255), 2)
-            cv2.putText(blended, f"#{idx+1}", (x, max(15, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            x, y, w, h = finding['bbox']
+            bbox_color = (0, 255, 255)
+            cv2.rectangle(blended, (x, y), (x + w, y + h), bbox_color, 2)
+            cv2.putText(blended, f"#{idx+1}", (x, max(15, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, bbox_color, 2)
     
     # Top Metrics Bar
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric(label="Lesions Detected", value=len(lesions))
+        st.metric(label=metric_count_label, value=len(findings))
     with col2:
-        st.metric(label="Affected Area", value=f"{affected_pct:.2f}%")
+        st.metric(label=metric_area_label, value=f"{affected_pct:.2f}%")
     with col3:
-        st.metric(label="Max Lesion Probability", value=f"{np.max(prob_mask):.2f}")
+        st.metric(label=metric_prob_label, value=f"{np.max(prob_mask):.2f}")
     with col4:
-        if len(lesions) == 0:
-            st.markdown('**Severity Assessment:**<br><span class="severity-badge-none">Sound / No Active Decay</span>', unsafe_allow_html=True)
-        elif affected_pct < 1.5:
-            st.markdown('**Severity Assessment:**<br><span class="severity-badge-mild">Incipient / Mild Caries</span>', unsafe_allow_html=True)
+        if is_radiograph_mode:
+            # Caries Diagnostic Assessment
+            if len(findings) == 0:
+                st.markdown('**Severity Assessment:**<br><span class="severity-badge-none">Sound / No Active Decay</span>', unsafe_allow_html=True)
+            elif affected_pct < 1.5:
+                st.markdown('**Severity Assessment:**<br><span class="severity-badge-mild">Incipient / Enamel Caries</span>', unsafe_allow_html=True)
+            else:
+                st.markdown('**Severity Assessment:**<br><span class="severity-badge-severe">Moderate - Deep Dentinal Caries</span>', unsafe_allow_html=True)
         else:
-            st.markdown('**Severity Assessment:**<br><span class="severity-badge-severe">Moderate - Deep Lesion</span>', unsafe_allow_html=True)
+            # Plaque Oral Hygiene Assessment
+            if len(findings) == 0:
+                st.markdown('**Oral Hygiene Assessment:**<br><span class="severity-badge-none">Clean Surfaces (No Biofilm)</span>', unsafe_allow_html=True)
+            elif affected_pct < 5.0:
+                st.markdown('**Oral Hygiene Assessment:**<br><span class="severity-badge-mild">Mild Plaque Accumulation</span>', unsafe_allow_html=True)
+            else:
+                st.markdown('**Oral Hygiene Assessment:**<br><span class="severity-badge-severe">Moderate - Heavy Biofilm Coverage</span>', unsafe_allow_html=True)
 
     st.write("")
     
@@ -465,30 +505,32 @@ if input_image is not None:
     with img_col1:
         st.image(input_image, caption=f"Raw Image ({image_name})", use_container_width=True)
     with img_col2:
-        st.image(processed_image, caption="CLAHE Enhanced View", use_container_width=True)
+        second_caption = "CLAHE Contrast Enhanced" if enable_clahe else "Full-Color RGB Camera View"
+        st.image(processed_image, caption=second_caption, use_container_width=True)
     with img_col3:
         st.image(blended, caption=f"Diagnostic Overlay ({target_label})", use_container_width=True)
         
-    # Localized Lesions Quantification Table
-    if len(lesions) > 0:
-        st.markdown("#### 3. Localized Lesion Quantification")
+    # Localized Findings Quantification Table
+    if len(findings) > 0:
+        st.markdown(table_header)
         table_data = []
-        for i, l in enumerate(lesions):
+        for i, f_item in enumerate(findings):
             table_data.append({
-                "Lesion #": f"#{i+1}",
-                "Centroid (X, Y)": f"({l['centroid'][0]}, {l['centroid'][1]})",
-                "Bounding Box (X, Y, W, H)": f"{l['bbox']}",
-                "Area (pixels)": l['area'],
-                "Area % of Image": f"{(l['area'] / (input_image.shape[0] * input_image.shape[1])) * 100:.3f}%"
+                table_item_label: f"#{i+1}",
+                "Centroid (X, Y)": f"({f_item['centroid'][0]}, {f_item['centroid'][1]})",
+                "Bounding Box (X, Y, W, H)": f"{f_item['bbox']}",
+                "Area (pixels)": f_item['area'],
+                "Coverage % of Image": f"{(f_item['area'] / (input_image.shape[0] * input_image.shape[1])) * 100:.3f}%"
             })
         st.dataframe(table_data, use_container_width=True)
         
     # Expandable Ground Truth Reference Viewer
     if ref_image_path is not None and ref_image_path.exists():
-        with st.expander("🔍 View Radiologist Ground-Truth Annotation Reference (Side-by-Side)", expanded=False):
+        ref_title = "Radiologist Ground-Truth Annotation" if is_radiograph_mode else "Clinical Plaque Ground-Truth Annotation"
+        with st.expander(f"🔍 View {ref_title} Reference (Side-by-Side)", expanded=False):
             ref_bgr = cv2.imread(str(ref_image_path))
             if ref_bgr is not None:
                 ref_rgb = cv2.cvtColor(ref_bgr, cv2.COLOR_BGR2RGB)
-                st.image(ref_rgb, caption=f"Ground Truth Reference: {ref_image_path.name} (Left: Enhanced X-ray, Right: Radiologist Annotated Mask)", use_container_width=True)
+                st.image(ref_rgb, caption=f"Ground Truth Reference: {ref_image_path.name} (Left: Input Image, Right: Ground Truth Mask)", use_container_width=True)
 else:
     st.info("👆 Please upload an intraoral image or select a pre-curated demo case above to initiate diagnostic analysis.")
