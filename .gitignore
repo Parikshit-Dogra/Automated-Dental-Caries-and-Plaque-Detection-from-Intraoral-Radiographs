@@ -1,2 +1,5 @@
 .venv/
 Datasets/
+demo testing/
+app/__pycache__/
+models/
