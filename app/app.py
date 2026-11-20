@@ -24,8 +24,25 @@ st.set_page_config(
 APP_DIR = Path(__file__).resolve().parent
 ROOT_DIR = APP_DIR.parent
 MODELS_DIR = ROOT_DIR / "models"
-CARIES_MODEL_PATH = MODELS_DIR / "best_caries_unet.pth"
-PLAQUE_MODEL_PATH = MODELS_DIR / "plaque_unet.pth"
+CARIES_CANDIDATE_PATHS = [
+    MODELS_DIR / "best_caries_unet.pth",
+    MODELS_DIR / "caries_unet.pth",
+    MODELS_DIR / "caries_model.pth"
+]
+PLAQUE_CANDIDATE_PATHS = [
+    MODELS_DIR / "plaque_unet.pth",
+    MODELS_DIR / "best_plaque_unet.pth",
+    MODELS_DIR / "plaque_model.pth"
+]
+
+def resolve_model_path(candidates: list[Path]) -> Path:
+    for p in candidates:
+        if p.exists():
+            return p
+    return candidates[0]
+
+CARIES_MODEL_PATH = resolve_model_path(CARIES_CANDIDATE_PATHS)
+PLAQUE_MODEL_PATH = resolve_model_path(PLAQUE_CANDIDATE_PATHS)
 
 PERIAPICAL_SAMPLE_DIR = ROOT_DIR / "Datasets" / "Intraoral Radiographic Database for Periapical Les" / "images"
 PLAQUE_SAMPLE_DIR = ROOT_DIR / "Datasets" / "ODS_dataset" / "Plaques" / "img"
@@ -225,11 +242,37 @@ def load_unet_model(model_path_str: str, mtime: float):
         activation=None
     )
     if model_path.exists():
-        state_dict = torch.load(model_path, map_location=DEVICE)
-        model.load_state_dict(state_dict)
-        status = "Trained Checkpoint Loaded"
+        loaded = torch.load(model_path, map_location=DEVICE)
+        # Handle full model save vs state_dict, and checkpoints saved with wrapper keys
+        if isinstance(loaded, nn.Module):
+            model = loaded
+            status = f"Trained Model Loaded ({model_path.name})"
+        elif isinstance(loaded, dict):
+            # If checkpoint contains metadata dict e.g. {'model_state_dict': ..., 'state_dict': ...}
+            if "model_state_dict" in loaded:
+                state_dict = loaded["model_state_dict"]
+            elif "state_dict" in loaded:
+                state_dict = loaded["state_dict"]
+            elif "model" in loaded and isinstance(loaded["model"], dict):
+                state_dict = loaded["model"]
+            else:
+                state_dict = loaded
+
+            # Strip DataParallel or DistributedDataParallel prefixes ('module.') if present
+            cleaned_state_dict = {}
+            for k, v in state_dict.items():
+                new_key = k[7:] if k.startswith("module.") else k
+                cleaned_state_dict[new_key] = v
+
+            missing_keys, unexpected_keys = model.load_state_dict(cleaned_state_dict, strict=False)
+            if len(missing_keys) == 0:
+                status = f"Trained Checkpoint Loaded ({model_path.name})"
+            else:
+                status = f"Checkpoint Loaded with {len(missing_keys)} missing / {len(unexpected_keys)} unexpected keys"
+        else:
+            status = f"Checkpoint Loaded ({model_path.name})"
     else:
-        status = "Base Encoder Loaded"
+        status = "Base Encoder Loaded (Untrained)"
     
     model.to(DEVICE)
     model.eval()
